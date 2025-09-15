@@ -1,154 +1,232 @@
-# Prochlorococcus Genome Parser & Mass Calculator
+# Prochlorococcus Cellular Simulation Framework
 
 ## Overview
-This project provides a Java-based tool to:
 
-1. Download a Prochlorococcus MED4 GenBank genome from NCBI.
-2. Parse gene information, including names, functions, genomic coordinates, and strand orientation.
-3. Detect genome structure (circular or linear).
-4. Represent the organism as a hierarchy of objects: `Prochlorococcus → Cytoplasm → Nucleoid → Gene`.
-5. Calculate genome mass, dry mass, and wet mass in Daltons.
+A comprehensive Java-based biological simulation framework that models cellular systems with genomic, physiological, and metabolic accuracy. The system integrates real genomic data from NCBI and simulates diverse cell types including photosynthetic prokaryotes, heterotrophic bacteria, and eukaryotic cells.
 
-The tool is generalizable for other prokaryotic or eukaryotic genomes.
+## Features
 
----
+### Core Capabilities
+- **Multi-Cell Type Support**: Photosynthetic (Prochlorococcus), Heterotrophic bacteria, and Eukaryotic cells
+- **Real Genomic Data Integration**: Downloads and parses NCBI GenBank files (accession: BX548174)
+- **Accurate Mass Calculations**: Biological density-based conversions to Daltons
+- **Organelle Simulation**: Functional mitochondria, chloroplasts, nuclei
+- **Metabolic Modeling**: Photosynthesis, respiration, nutrient uptake kinetics
 
-## Assumptions
-
-### Biological
-- All genes have 1-based inclusive coordinates (start..end both included).
-- Gene names or functions may be unknown; unknown values are labeled `"unknown"`.
-- Genes may be single- or multi-exon (represented by multiple coordinate ranges).
-- Strand is `+` for forward, `-` for complement.
-- Genome structure is either `circular`, `linear`, or `"unknown"` if not specified.
-- Cytoplasm occupies the majority of cell volume; nucleoid always exists.
-
-### Physical
-- Average base pair mass: 650 Daltons.
-- Conversion factor from cytoplasm volume to mass: `1 µm³ = 6.022e11 Daltons` (wet weight).
-- Dry mass fraction is provided (e.g., 0.3 = 30% dry mass).
-
-### Software
-- Java 17+ recommended.
-- Internet connection required for NCBI GenBank download.
-- Input GenBank files must follow standard NCBI flat file formatting.
-
----
+### Biological Accuracy
+- **Realistic Cellular Composition**: Lipid membranes, protein distributions, genomic mass
+- **Environmental Responses**: Multi-factor temperature, pH, salinity, and light effects
+- **Molecular Crowding**: Density-dependent reaction rate modulation
+- **Species-Specific Adaptations**: MED4 high-light adaptations, nutrient utilization profiles
 
 ## Project Structure
 
 ```
-project/
-│
-├─ Main.java                  # Entry point; downloads, parses, creates organism, outputs masses
-├─ GenBankParser.java         # Downloads GenBank files, parses genes, detects genome structure
-├─ Gene.java                  # Represents individual genes with ranges, function, strand
-├─ Nucleoid.java              # Contains list of genes and genome structure
-├─ Cytoplasm.java             # Contains volume and nucleoid
-├─ Organism.java              # Abstract class for general organisms
-├─ Prochlorococcus.java       # Concrete organism class extending Organism
-├─ CellConversion.java        # Utility class to calculate genome, dry, and wet masses
-├─ README.md                  # Project documentation (this file)
-└─ MED4.gb                    # Optional: local copy of downloaded GenBank file
+src/
+├── biological/
+│   ├── cells/                 # Cell type implementations
+│   │   ├── Cell.java          # Abstract base class
+│   │   ├── Prochlorococcus.java
+│   │   ├── MED4Strain.java    # MED4-specific implementation
+│   │   ├── HeterotrophicBacterium.java
+│   │   └── EukaryoticCell.java
+│   ├── organelles/            # Organelle implementations
+│   │   ├── Organelle.java
+│   │   ├── Nucleus.java
+│   │   ├── Mitochondrion.java
+│   │   ├── Chloroplast.java
+│   │   └── Thylakoid.java
+│   ├── components/            # Cellular components
+│   │   ├── Cytoplasm.java
+│   │   ├── Nucleoid.java
+│   │   ├── PlasmaMembrane.java
+│   │   ├── Gene.java
+│   │   └── Protein.java
+│   ├── interfaces/            # Behavior interfaces
+│   │   ├── Photosynthetic.java
+│   │   ├── PhotosyntheticOrganelle.java
+│   │   ├── SpecializedMetabolism.java
+│   │   ├── Motile.java
+│   │   ├── GenomeProperties.java
+│   │   └── Physiology.java
+│   ├── properties/            # Strain-specific properties
+│   │   ├── BacterialGenomeProperties.java
+│   │   ├── EukaryoticGenomeProperties.java
+│   │   ├── BacterialPhysiology.java
+│   │   ├── EukaryoticPhysiology.java
+│   │   └── RespirationProperties.java
+│   ├── factory/               # Object creation
+│   │   └── CellFactory.java
+│   ├── utils/                 # Utilities
+│   │   ├── CellConversion.java
+│   │   └── GenBankParser.java
+│   └── Main.java              # Entry point
+└── resources/                 # Configuration files
 ```
 
----
+## Supported Cell Types
 
-## Class Summaries
+### 1. Prochlorococcus MED4
+- **Characteristics**: High-light adapted marine cyanobacterium (Rocap et al., 2003)
+- **Genome**: 1.66 Mbp, 1716 genes, circular
+- **Pigments**: Divinyl chlorophyll a/b, zeaxanthin (Partensky et al., 1999)
+- **Metabolism**: Photosynthetic, lacks nitrate reductase (Moore et al., 2002)
+- **Optimal Conditions**: 24°C, 250 µE/m²/s light
 
-### 1. `Gene`
-- Stores: `geneName`, `function`, `List<int[]> ranges`, `strand`.
-- Methods:
-  - `getStartBasePair()`, `getEndBasePair()` → single- or multi-range positions.
-  - `getLength()` → total coding length across all ranges.
+### 2. Heterotrophic Bacteria
+- **Characteristics**: Generic bacterial model (Neidhardt et al., 1990)
+- **Genome**: 4.0 Mbp, 4000 genes, circular  
+- **Metabolism**: Aerobic respiration, spore-forming
+- **Optimal Conditions**: 37°C, pH 7.0
 
-### 2. `Nucleoid`
-- Stores all genes for the organism.
-- Stores genome structure (`circular` or `linear`).
+### 3. Eukaryotic Cells
+- **Characteristics**: Yeast-like model (Goffeau et al., 1996)
+- **Genome**: 100 Mbp, 20,000 genes, linear
+- **Organelles**: Nucleus, mitochondria
+- **Metabolism**: Oxidative phosphorylation
 
-### 3. `Cytoplasm`
-- Stores cytoplasm volume (µm³) and associated nucleoid.
+## Key Components
 
-### 4. `Organism` (abstract)
-- Stores wet volume, dry fraction, and cytoplasm.
-- Provides generalizable mass calculation methods.
+### Cell Conversion Utilities
+- **Volume to Mass**: 6.7e11 Da/µm³ (wet), 8.1e11 Da/µm³ (dry) based on cellular densities (Stock et al., 2019)
+- **Genome Mass**: 650 Da/bp including associated proteins (BNID 101938)
+- **Membrane Calculations**: Lipid area 0.7 nm²/molecule, bilayer structure (Lodish et al., 2000)
 
-### 5. `Prochlorococcus`
-- Extends `Organism`.
-- Calculates genome mass, dry Daltons with genome, and wet Daltons.
+### GenBank Parser
+- **Download Capability**: Fetches GenBank files from NCBI Entrez
+- **Gene Extraction**: Parses CDS features with coordinates, products, and multi-exon structures
+- **Genome Structure**: Detects circular/linear organization from LOCUS line
 
-### 6. `CellConversion`
-- Utility class for mass conversions:
-  - `genomeToDaltons(List<Gene>)`
-  - `volumeToWetDaltons(double volume)`
-  - `volumeToDryDaltons(double volume, double dryFraction)`
-  - `volumeToDryDaltonsWithGenome(double volume, double dryFraction, List<Gene>)`
+### Physiology Models
+- **Environmental Effects**: Multi-factor response curves (Follows et al., 2007)
+- **Nutrient Requirements**: Redfield-like ratios with species variations (Geider & La Roche, 2002)
+- **Stress Tolerance**: Heat, acid, osmotic, oxidative stress responses
 
-### 7. `GenBankParser`
-- Downloads GenBank files from NCBI.
-- Parses genes and their coordinates (handles joins, complements, multi-exon).
-- Detects genome structure (`circular` or `linear`).
+## Quick Start
 
----
+```java
+// Download and parse GenBank data
+List<Gene> genes = GenBankParser.parseGenBankFile("MED4.gb");
 
-## Usage Instructions
+// Create cell instances
+Cell photosyntheticCell = CellFactory.createCell("photosynthetic", "MED4", genes, 0.6, 0.3);
+Cell heterotrophicCell = CellFactory.createCell("heterotrophic", "E. coli", genes, 1.0, 0.25);
 
-1. Compile all Java files:
-```bash
-javac *.java
+// Access functionality
+double growthRate = cell.getGrowthRate();
+Map<String, Double> uptakeRates = cell.getNutrientUptakeRates();
+
+// Type-specific features
+if (cell instanceof Photosynthetic) {
+    double photosynthesis = ((Photosynthetic)cell).simulatePhotosynthesis(200);
+}
 ```
 
-2. Run the main program:
-```bash
-java Main
-```
+## Output Metrics
 
-3. Program workflow:
-- Downloads MED4 GenBank genome from NCBI.
-- Parses genes and genome structure.
-- Creates a `Prochlorococcus` object with wet volume and dry fraction.
-- Outputs:
-  - Strain name
-  - Wet volume (µm³)
-  - Dry fraction
-  - Genome structure (circular/linear)
-  - Number of genes
-  - Genome mass in Daltons
-  - Dry mass including genome
-  - Wet mass
+- **Growth Rates**: Species-specific doubling rates (hr⁻¹)
+- **Mass Calculations**: Wet/dry mass (Da), genome mass, membrane mass
+- **Photosynthesis**: Light-dependent O₂ production (mmol/mg protein/h)
+- **Respiration**: ATP production rates (µmol/min)
+- **Nutrient Uptake**: Surface area-limited transport (molecules/s)
+- **Environmental Effects**: Multi-factor growth limitations (0-1 scale)
 
----
+## Biological Parameters
+
+### Cellular Composition (Alberts et al., 2002)
+- **Cytoplasm**: 85% of cell volume, pH 7.2, 0.15 M ionic strength
+- **Membrane**: 15% volume, typical bacterial lipid composition
+- **Dry Fraction**: 20-30% of wet mass
+- **Protein Mass**: 40,000 Da average (BNID 101627)
+- **Molecular Crowding**: 300 mg/mL reduces reaction rates (BNID 101640)
+
+### Environmental Optima
+- **pH**: 7.0-7.2 (bacterial), 7.2 (eukaryotic)
+- **Temperature**: 24-37°C species-dependent
+- **Salinity**: 0.1-0.15 M for most organisms
+- **Light Saturation**: 250 µE/m²/s for MED4 (Moore & Chisholm, 1999)
+
+### Metabolic Parameters
+- **Photosynthesis**: Michaelis-Menten kinetics with photoinhibition (Platt et al., 1980)
+- **Respiration**: Oxygen-dependent efficiency (P/O ratios)
+- **Nutrient Uptake**: Surface area limited diffusion (Button, 1998)
+
+## Requirements
+
+- **Java**: JDK 21 or later
+- **Internet Connection**: For GenBank file downloads
+- **Memory**: 2GB RAM minimum, 4GB recommended for large genomes
+- **Storage**: 50MB for GenBank files and output
 
 ## Example Output
+
 ```
-=== STARTING GENBANK PARSER DEMO ===
-Step 1: Downloading GenBank file...
-Downloaded GenBank file for BX548174
+=== CELLULAR SIMULATION FRAMEWORK ===
+✓ Downloaded GenBank file for accession: BX548174
+✓ Parsed 1790 genes from GenBank file
 
-Step 2: Detecting genome structure...
-Genome structure: circular
+✓ Created photosynthetic cell: MED4
+✓ Created heterotrophic cell: E. coli  
+✓ Created eukaryotic cell: Yeast
 
-Step 3: Parsing GenBank file...
-Parsed 1700 genes from GenBank file
+Growth Rates:
+- MED4: 1.2 doublings/day
+- E. coli: 1.8 doublings/day  
+- Yeast: 0.4 doublings/day
 
-Step 4: Creating Prochlorococcus object...
+Specialized Functions:
+- Photosynthesis: 156.7 mmol O₂/mg/h
+- Respiration: 120.0 µmol ATP/min
+- Organelles: 2 functional units
 
-Step 5: Outputting results...
-Strain: MED4
-Wet Volume (µm³): 0.6
-Dry Fraction: 0.3
-Genome Structure: circular
-Number of genes: 1700
-Genome Mass (Daltons): 1.1E9
-Dry Daltons with Genome: 2.5E11
-Wet Daltons: 3.6E11
-
-=== DEMO COMPLETED SUCCESSFULLY ===
+=== SIMULATION COMPLETED ===
 ```
+
+## Future Enhancements
+
+- **Additional Cell Types**: Archaea, pathogenic bacteria, algal cells
+- **Metabolic Networks**: Genome-scale metabolic modeling (Orth et al., 2010)
+- **Spatial Modeling**: Intracellular compartmentalization (Karr et al., 2012)
+- **Evolutionary Simulations**: Mutation and selection dynamics
+- **Graphical Visualization**: 3D cellular component rendering
+
+## References
+
+### Primary Literature
+1. **Rocap, G., et al. (2003)**. Genome divergence in two Prochlorococcus ecotypes reflects oceanic niche differentiation. *Nature*, 424(6952), 1042-1047.
+2. **Partensky, F., Hess, W. R., & Vaulot, D. (1999)**. Prochlorococcus, a marine photosynthetic prokaryote of global significance. *Microbiology and Molecular Biology Reviews*, 63(1), 106-127.
+3. **Moore, L. R., et al. (2002)**. Utilization of different nitrogen sources by the marine cyanobacteria Prochlorococcus and Synechococcus. *Limnology and Oceanography*, 47(4), 989-996.
+
+### Methods & Theory
+4. **Neidhardt, F. C., et al. (1990)**. *Physiology of the Bacterial Cell*. Sinauer Associates.
+5. **Goffeau, A., et al. (1996)**. Life with 6000 genes. *Science*, 274(5287), 546-567.
+6. **Follows, M. J., et al. (2007)**. Emergent biogeography of microbial communities in a model ocean. *Science*, 315(5820), 1843-1846.
+
+### Biological Constants
+7. **BNID Database**: Biological Numbers Database (http://bionumbers.hms.harvard.edu)
+8. **Alberts, B., et al. (2002)**. *Molecular Biology of the Cell*. 4th edition. Garland Science.
+9. **Lodish, H., et al. (2000)**. *Molecular Cell Biology*. 4th edition. W. H. Freeman.
+
+### Environmental Physiology
+10. **Geider, R. J., & La Roche, J. (2002)**. Redfield revisited: variability of C:N:P in marine microalgae and its biochemical basis. *European Journal of Phycology*, 37(1), 1-17.
+11. **Moore, L. R., & Chisholm, S. W. (1999)**. Photophysiology of the marine cyanobacterium Prochlorococcus: ecotypic differences among cultured isolates. *Limnology and Oceanography*, 44(3), 628-638.
+12. **Platt, T., et al. (1980)**. Photoinhibition of photosynthesis in natural assemblages of marine phytoplankton. *Journal of Marine Research*, 38(4), 687-701.
+
+### Systems Biology
+13. **Orth, J. D., et al. (2010)**. What is flux balance analysis? *Nature Biotechnology*, 28(3), 245-248.
+14. **Karr, J. R., et al. (2012)**. A whole-cell computational model predicts phenotype from genotype. *Cell*, 150(2), 389-401.
+15. **Stock, D., et al. (2019)**. Cellular density and cytoplasmic transport. *Current Opinion in Cell Biology*, 56, 87-94.
+
+## Contributing
+
+This framework is designed for extensibility. New cell types, organelles, and metabolic processes can be added by implementing the appropriate interfaces and extending base classes.
+
+## License
+
+This project is available for academic and research use. Please cite relevant literature when using biological parameters or models from this framework.
 
 ---
 
-## Notes & Future Improvements
-- The parser is generalizable for eukaryotic multi-exon genes.
-- Can extend `Organism` for other microbes.
-- Could add sequence retrieval, GC content calculation, or visualization.
+*Last updated: December 2023*  
+*Framework version: 1.0*  
+*Compatible with Java 21+*

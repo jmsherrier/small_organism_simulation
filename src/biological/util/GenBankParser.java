@@ -1,16 +1,12 @@
+package biological.util;
+
+import biological.components.Gene;
 import java.io.*;
 import java.util.*;
 import java.util.regex.*;
 
 /**
  * Parses GenBank flat files to extract gene information and genome structure.
- *
- * Assumptions:
- * - GenBank file follows standard feature table format
- * - CDS may have simple coordinates (123..456) or complex (join/complement)
- * - Gene names preferred over locus_tag
- * - Product descriptions may span multiple lines
- * - Genome structure: circular, linear, or unknown
  */
 public class GenBankParser {
 
@@ -30,7 +26,6 @@ public class GenBankParser {
             while ((line = reader.readLine()) != null) {
                 String trimmed = line.trim();
                 
-                // Detect CDS line
                 if (trimmed.startsWith("CDS")) {
                     if (inCDS && geneName != null && ranges != null) {
                         genes.add(new Gene(geneName, function != null ? function : "unknown", ranges, strand));
