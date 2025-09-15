@@ -57,4 +57,12 @@ public class Gene {
         }
         return length;
     }
+    /**
+     * Expresses a protein from this gene.
+     * @param location the cellular location of the protein ("cytoplasm" or "membrane")
+     * @return a new Protein object
+     */
+    public Protein expressProtein(String location) {
+        return new Protein(this.getGeneName(), this.getFunction(), location);
+    }
 }

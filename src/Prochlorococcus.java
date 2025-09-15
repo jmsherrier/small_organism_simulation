@@ -8,7 +8,7 @@ import java.util.List;
  * - Strain name is specified
  */
 public class Prochlorococcus extends Organism {
-    private String strain;
+    private final String strain;
 
     public Prochlorococcus(String strain, List<Gene> genes, double wetVolumeMicron3, double dryFraction, String genomeStructure) {
         super(wetVolumeMicron3, dryFraction, new Cytoplasm(wetVolumeMicron3, new Nucleoid(genes, genomeStructure)));
@@ -26,5 +26,13 @@ public class Prochlorococcus extends Organism {
 
     public double getWetDaltons() {
         return CellConversion.volumeToWetDaltons(wetVolumeMicron3);
+    }
+    
+    /**
+     * Simulate a single cell activity step via cytoplasmic proteins.
+     */
+    public void simulateCellActivity() {
+        System.out.println("Simulating activity for " + strain);
+        this.cytoplasm.simulateActivity();
     }
 }

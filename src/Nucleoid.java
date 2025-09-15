@@ -9,8 +9,8 @@ import java.util.List;
  * - Genes list is never null (may be empty if parsing fails)
  */
 public class Nucleoid {
-    private List<Gene> genes;
-    private String structure; // "circular", "linear", or "unknown"
+    private final List<Gene> genes;
+    private final String structure; // "circular", "linear", or "unknown"
 
     public Nucleoid(List<Gene> genes, String structure) {
         this.genes = genes;
