@@ -1,7 +1,7 @@
 package biological.interfaces;
 
 /**
- * Interface for strain-specific genome properties.
+ * Interface defining genome properties for different cell types
  */
 public interface GenomeProperties {
     int getExpectedGeneCount();

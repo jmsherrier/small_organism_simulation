@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "DebugMain",
+            "request": "launch",
+            "mainClass": "biological.DebugMain",
+            "projectName": "Organisms_2703bbed"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "biological.AdvancedCellSimulation",
+            "projectName": "Organisms_2703bbed"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "Organisms_2703bbed"
+        },
+        {
+            "type": "java",
+            "name": "Debug Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "ProchlorococcusProject"
+        }
+    ]
+}

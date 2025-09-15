@@ -1,0 +1,25 @@
+{
+    // Path to JDK 21
+    "java.jdt.ls.java.home": "C:\\Program Files\\Java\\jdk-21",
+
+    // Configure JDK runtimes
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-21",
+            "path": "C:\\Program Files\\Java\\jdk-21",
+            "default": true
+        }
+    ],
+
+    // Do not disable nbjavac (use VS Code compiler)
+    "jdk.advanced.disable.nbjavac": false,
+
+    // Source folder(s)
+    "java.project.sourcePaths": ["src"],
+
+    // Output folder for compiled classes
+    "java.project.outputPath": "bin",
+
+    // No external jars needed for now
+    "java.project.referencedLibraries": []
+}

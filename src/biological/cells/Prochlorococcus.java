@@ -1,11 +1,11 @@
-package biological.cells;
+ package biological.cells;
 
 import biological.components.Cytoplasm;
 import biological.components.PlasmaMembrane;
 import biological.components.Thylakoid;
 import biological.interfaces.GenomeProperties;
-import biological.interfaces.Physiology;
 import biological.interfaces.Photosynthetic;
+import biological.interfaces.Physiology;
 import java.util.Map;
 
 /**

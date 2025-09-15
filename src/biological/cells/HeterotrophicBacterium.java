@@ -44,6 +44,22 @@ public class HeterotrophicBacterium extends Cell {
     public double getRespirationRate() {
         return respiration.calculateRespirationRate();
     }
+
+    // Add these methods to your existing HeterotrophicBacterium class
+    @Override
+    protected Map<String, Double> calculateATPProduction() {
+        Map<String, Double> production = new HashMap<>();
+        production.put("respiration", getRespirationRate());
+        return production;
+    }
+
+    @Override
+    protected Map<String, Double> calculateATPConsumption() {
+        Map<String, Double> consumption = new HashMap<>();
+        consumption.put("biosynthesis", getGrowthRate() * 800);
+        consumption.put("maintenance", 40.0);
+        return consumption;
+    }
     
     public boolean canRespire() {
         return respiration.canPerformAerobicRespiration();

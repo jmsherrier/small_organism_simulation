@@ -11,8 +11,7 @@ public class EukaryoticGenomeProperties implements GenomeProperties {
     @Override
     public double getGenomeSizeMbp() { return 100.0; }
     @Override
-    public String[] getMissingGenes(
-    ) { return new String[0]; }
+    public String[] getMissingGenes() { return new String[0]; } // FIXED: Removed extra parenthesis
     @Override
     public String[] getUniqueGenes() { return new String[]{"histones", "telomerase"}; }
     @Override

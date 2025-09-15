@@ -31,11 +31,6 @@ public class Cytoplasm {
         for (Gene g : nucleoid.getGenes()) {
             Protein protein = g.expressProtein("cytoplasm");
             solubleProteins.add(protein);
-            
-            // 30% of proteins are membrane-associated in bacteria
-            if (Math.random() < 0.3) {
-                membrane.addMembraneProtein(protein);
-            }
         }
     }
 

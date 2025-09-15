@@ -135,8 +135,19 @@ public class MED4Strain extends Prochlorococcus {
         
         @Override public double getOptimalTemperature() { return 24.0; }
         @Override public double getOptimalpH() { return 7.2; }
-        @Override public double getOptimalSalinity() { return 0.035; }
-        @Override public double getMaxGrowthRate() { return 1.8; }
+
+        @Override
+        public double getOptimalSalinity() {
+            return 0.035;
+        }
+        private double maxGrowthRate = 1.8;
+        public void setMaxGrowthRate(double maxGrowthRate) {
+            this.maxGrowthRate = maxGrowthRate;
+        }
+        @Override
+        public double getMaxGrowthRate() {
+            return maxGrowthRate;
+        }
         @Override public Map<String, Double> getNutrientRequirements() { return Collections.unmodifiableMap(nutrientQuotas); }
         @Override public Map<String, Double> getWasteProductionRates() { return Map.of("O2", 0.5, "organic_waste", 0.1); }
         
@@ -189,13 +200,34 @@ public class MED4Strain extends Prochlorococcus {
     public static class NutrientPhysiology {
         private final boolean hasNitrateReductase;
         private final boolean hasNitriteReductase;
-        
+
         public NutrientPhysiology() {
             this.hasNitrateReductase = false;
             this.hasNitriteReductase = true;
         }
-        
-        public boolean canUseNitrate() { return hasNitrateReductase; }
-        public boolean canUseNitrite() { return hasNitriteReductase; }
+
+        public boolean canUseNitrate() {
+            return hasNitrateReductase;
+        }
+
+        public boolean canUseNitrite() {
+            return hasNitriteReductase;
+        }
+    }
+    
+    @Override
+    protected Map<String, Double> calculateATPProduction() {
+        Map<String, Double> production = new HashMap<>();
+        double photosynthesis = simulatePhotosynthesis(200); // Example light level
+        production.put("photosynthesis", photosynthesis * 0.5); // Convert to ATP
+        return production;
+    }
+
+    @Override
+    protected Map<String, Double> calculateATPConsumption() {
+        Map<String, Double> consumption = new HashMap<>();
+        consumption.put("biosynthesis", getGrowthRate() * 1000); // Example
+        consumption.put("maintenance", 50.0); // Example
+        return consumption;
     }
 }

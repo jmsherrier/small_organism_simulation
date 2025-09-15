@@ -22,9 +22,18 @@ public class BacterialPhysiology implements Physiology {
     @Override
     public double getOptimalpH() { return 7.0; }
     @Override
-    public double getOptimalSalinity() { return 0.15; }
+    public double getOptimalSalinity() {
+        return 0.15;
+    }
+
+    private double maxGrowthRate = 2.0;
     @Override
-    public double getMaxGrowthRate() { return 2.0; }
+    public double getMaxGrowthRate() {
+        return maxGrowthRate;
+    }
+    public void setMaxGrowthRate(double maxGrowthRate) {
+        this.maxGrowthRate = maxGrowthRate;
+    }
     
     @Override
     public Map<String, Double> getNutrientRequirements() { 
@@ -65,5 +74,7 @@ public class BacterialPhysiology implements Physiology {
     @Override
     public double getStressTolerance(String stressor) { return 0.7; }
     @Override
-    public boolean canFormSpores() { return true; }
+    public boolean canFormSpores() {
+        return true;
+    }
 }

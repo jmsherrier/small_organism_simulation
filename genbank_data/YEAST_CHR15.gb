@@ -1,0 +1,93 @@
+LOCUS       NC_001147            1091291 bp    DNA     linear   CON 30-JUN-2025
+DEFINITION  Saccharomyces cerevisiae S288C chromosome XV, complete sequence.
+ACCESSION   NC_001147
+VERSION     NC_001147.6
+DBLINK      BioProject: PRJNA128
+            Assembly: GCF_000146045.2
+KEYWORDS    RefSeq.
+SOURCE      Saccharomyces cerevisiae S288C
+  ORGANISM  Saccharomyces cerevisiae S288C
+            Eukaryota; Fungi; Dikarya; Ascomycota; Saccharomycotina;
+            Saccharomycetes; Saccharomycetales; Saccharomycetaceae;
+            Saccharomyces.
+REFERENCE   1  (bases 1 to 1091291)
+  AUTHORS   Engel,S.R., Wong,E.D., Nash,R.S., Aleksander,S., Alexander,M.,
+            Douglass,E., Karra,K., Miyasato,S.R., Simison,M., Skrzypek,M.S.,
+            Weng,S. and Cherry,J.M.
+  TITLE     New data and collaborations at the Saccharomyces Genome Database:
+            updated reference genome, alleles, and the Alliance of Genome
+            Resources
+  JOURNAL   Genetics 220 (4) (2022)
+   PUBMED   34897464
+REFERENCE   2  (bases 1 to 1091291)
+  AUTHORS   Dujon,B., Albermann,K., Aldea,M., Alexandraki,D., Ansorge,W.,
+            Arino,J., Benes,V., Bohn,C., Bolotin-Fukuhara,M., Bordonne,R.,
+            Boyer,J., Camasses,A., Casamayor,A., Casas,C., Cheret,G.,
+            Cziepluch,C., Daignan-Fornier,B., Dang,D.V., de Haan,M., Delius,H.,
+            Durand,P., Fairhead,C., Feldmann,H., Gaillon,L., Kleine,K. et al.
+  TITLE     The nucleotide sequence of Saccharomyces cerevisiae chromosome XV
+  JOURNAL   Nature 387 (6632 SUPPL), 98-102 (1997)
+   PUBMED   9169874
+REFERENCE   3  (bases 1 to 1091291)
+  AUTHORS   Goffeau,A., Barrell,B.G., Bussey,H., Davis,R.W., Dujon,B.,
+            Feldmann,H., Galibert,F., Hoheisel,J.D., Jacq,C., Johnston,M.,
+            Louis,E.J., Mewes,H.W., Murakami,Y., Philippsen,P., Tettelin,H. and
+            Oliver,S.G.
+  TITLE     Life with 6000 genes
+  JOURNAL   Science 274 (5287), 546 (1996)
+   PUBMED   8849441
+REFERENCE   4  (bases 1 to 1091291)
+  CONSRTM   NCBI Genome Project
+  TITLE     Direct Submission
+  JOURNAL   Submitted (30-JUN-2025) National Center for Biotechnology
+            Information, NIH, Bethesda, MD 20894, USA
+REFERENCE   5  (bases 1 to 1091291)
+  CONSRTM   Saccharomyces Genome Database
+  TITLE     Direct Submission
+  JOURNAL   Submitted (16-JAN-2015) Department of Genetics, Stanford
+            University, Stanford, CA 94305-5120, USA
+  REMARK    Protein update by submitter
+REFERENCE   6  (bases 1 to 1091291)
+  CONSRTM   Saccharomyces Genome Database
+  TITLE     Direct Submission
+  JOURNAL   Submitted (04-MAY-2012) Department of Genetics, Stanford
+            University, Stanford, CA 94305-5120, USA
+  REMARK    Protein update by submitter
+REFERENCE   7  (bases 1 to 1091291)
+  CONSRTM   Saccharomyces Genome Database
+  TITLE     Direct Submission
+  JOURNAL   Submitted (31-MAR-2011) Department of Genetics, Stanford
+            University, Stanford, CA 94305-5120, USA
+  REMARK    Sequence update by submitter
+REFERENCE   8  (bases 1 to 1091291)
+  CONSRTM   Saccharomyces Genome Database
+  TITLE     Direct Submission
+  JOURNAL   Submitted (27-MAY-2010) Department of Genetics, Stanford
+            University, Stanford, CA 94305-5120, USA
+  REMARK    Protein update by submitter
+REFERENCE   9  (bases 1 to 1091291)
+  CONSRTM   Saccharomyces Genome Database
+  TITLE     Direct Submission
+  JOURNAL   Submitted (14-DEC-2009) Department of Genetics, Stanford
+            University, Stanford, CA 94305-5120, USA
+COMMENT     REVIEWED REFSEQ: This record has been curated by SGD. The reference
+            sequence is identical to BK006948.
+            
+            On Apr 26, 2011 this sequence version replaced NC_001147.5.
+            
+            ##Genome-Annotation-Data-START##
+            Annotation Provider :: SGD
+            Annotation Status   :: Full Annotation
+            Annotation Version  :: R64-4-1
+            URL                 :: http://www.yeastgenome.org/
+            ##Genome-Annotation-Data-END##
+FEATURES             Location/Qualifiers
+     source          1..1091291
+                     /organism="Saccharomyces cerevisiae S288C"
+                     /mol_type="genomic DNA"
+                     /strain="S288C"
+                     /db_xref="taxon:559292"
+                     /chromosome="XV"
+CONTIG      join(BK006948.2:1..1091291)
+//
+
