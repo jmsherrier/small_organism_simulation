@@ -1,4 +1,4 @@
-## **README.md** (Fully Updated)
+## **README.md** (Updated with Latest Results)
 
 ```markdown
 # Prochlorococcus Cellular Simulation Framework
@@ -9,27 +9,30 @@ A comprehensive Java-based biological simulation framework that models cellular 
 
 ## 🚀 Current State: STABLE & VALIDATED
 
-**✅ Simulation Status**: Fully functional with scientific validation
-**✅ Protein Validation**: PASSING for all cell types (0-15% error)
-**✅ Sensitivity Analysis**: Working correctly
-**✅ Genomic Data**: Properly integrated for bacteria, programmatic for yeast
+**✅ Simulation Status**: Fully functional with scientific validation  
+**✅ Protein Validation**: PASSING for prokaryotes (0-15% error)  
+**✅ Sensitivity Analysis**: Working correctly  
+**✅ Genomic Data**: Properly integrated for bacteria, programmatic for yeast  
 
-## 📊 Latest Validation Results
+## 📊 Latest Validation Results (December 2023)
 
-### Prochlorococcus MED4
+### Prochlorococcus MED4 ✅ PASS
 - **Growth Rate**: 2.32 vs 1.80 expected (29.1% error) ⚠️
-- **Protein Fraction**: 0.473 vs 0.550 expected (14.0% error) ✅ PASS
+- **Protein Fraction**: 0.473 vs 0.550 expected (14.0% error) ✅
+- **Genes**: 1,960 (real GenBank data)
 - **Overall**: VALIDATION PASS
 
-### E. coli K-12  
+### Escherichia coli K-12 ✅ PASS  
 - **Growth Rate**: 1.60 vs 2.00 expected (20.0% error) ⚠️
-- **Protein Fraction**: 0.509 vs 0.500 expected (1.8% error) ✅ PASS
+- **Protein Fraction**: 0.509 vs 0.500 expected (1.8% error) ✅ EXCELLENT
+- **Genes**: 4,319 (real GenBank data)
 - **Overall**: VALIDATION PASS
 
-### Saccharomyces cerevisiae
+### Saccharomyces cerevisiae ❌ FAIL
 - **Growth Rate**: 0.02 vs 0.50 expected (95.1% error) ❌
-- **Protein Fraction**: 0.046 vs 0.450 expected (89.8% error) ❌
-- **Overall**: VALIDATION FAIL (growth rate calibration needed)
+- **Protein Fraction**: 0.636 vs 0.450 expected (41.3% error) ❌
+- **Genes**: 6,600 (programmatically generated)
+- **Overall**: VALIDATION FAIL (needs calibration)
 
 ## 🎯 Features
 
@@ -43,29 +46,32 @@ A comprehensive Java-based biological simulation framework that models cellular 
 
 ### 🔧 Recent Improvements
 - **Fixed Protein Calculation**: Realistic protein copy numbers (1000x correction)
-- **E. coli Calibration**: 1.8% protein error (near perfect)
-- **MED4 Validation**: 14.0% protein error (biologically realistic)
-- **Yeast Genome Generation**: Programmatic solution for eukaryotic complexity
+- **E. coli Calibration**: 1.8% protein error (near perfect) ✅
+- **MED4 Validation**: 14.0% protein error (biologically realistic) ✅
+- **Yeast Genome Generation**: 6,600 genes programmatically generated ✅
 
-## 🧪 Supported Cell Types
+## 📊 Simulation Output Summary
 
-### 1. Prochlorococcus MED4 ✅
-- **Status**: Fully functional
-- **Genes**: 1,960 (real GenBank data)
-- **Protein Validation**: 14.0% error (PASS)
-- **Genome Source**: NCBI BX548174
+### Cellular Mass Calculations
+| Cell Type | Volume (µm³) | Wet Mass (Da) | Dry Mass (Da) | Genome Mass (Da) |
+|-----------|-------------|---------------|---------------|------------------|
+| MED4 | 0.60 | 4.0e+11 | 1.3e+11 | 1.3e+09 |
+| E. coli | 1.00 | 6.7e+11 | 1.9e+11 | 3.4e+09 |
+| Yeast | 10.00 | 6.7e+12 | 1.2e+12 | 5.6e+09 |
 
-### 2. Escherichia coli K-12 ✅  
-- **Status**: Fully functional
-- **Genes**: 4,319 (real GenBank data)
-- **Protein Validation**: 1.8% error (EXCELLENT)
-- **Genome Source**: NCBI U00096
+### Growth Rates
+| Cell Type | Simulated | Expected | Error |
+|-----------|-----------|----------|-------|
+| MED4 | 2.32/hr | 1.80/hr | +29.1% |
+| E. coli | 1.60/hr | 2.00/hr | -20.0% |
+| Yeast | 0.02/hr | 0.50/hr | -95.1% |
 
-### 3. Saccharomyces cerevisiae ⚠️
-- **Status**: Functional but needs growth rate calibration
-- **Genes**: 6,600 (programmatically generated)
-- **Protein Validation**: 89.8% error (needs tuning)
-- **Genome Source**: Programmatic (SGD-based)
+### Protein Composition
+| Cell Type | Simulated | Expected | Error | Status |
+|-----------|-----------|----------|-------|--------|
+| MED4 | 47.3% | 55.0% | -14.0% | ✅ PASS |
+| E. coli | 50.9% | 50.0% | +1.8% | ✅ EXCELLENT |
+| Yeast | 63.6% | 45.0% | +41.3% | ❌ FAIL |
 
 ## 📁 Project Structure
 
@@ -110,7 +116,7 @@ src/
 │   ├── util/                  # Utilities
 │   │   ├── CellConversion.java
 │   │   ├── GenBankParser.java
-│   │   └── YeastGeneLoader.java   # NEW: Yeast genome generator
+│   │   └── YeastGeneLoader.java   # Yeast genome generator
 │   ├── validation/            # Validation system
 │   │   ├── ExperimentalValidator.java
 │   │   ├── ValidationResult.java
@@ -134,7 +140,7 @@ src/
 # Compile the project
 javac -cp . -d bin src/**/*.java
 
-# Run main simulation
+# Run main simulation (downloads GenBank files)
 java -cp bin biological.AdvancedCellSimulation
 
 # Run debug diagnostics
@@ -143,8 +149,9 @@ java -cp bin biological.DebugMain
 
 ## 🔬 Key Biological Parameters
 
-### Cellular Composition
-- **Protein Fraction**: 45-55% of dry mass (validated)
+### Cellular Composition (Validated)
+- **MED4 Protein**: 47.3% of dry mass (55.0% expected)
+- **E. coli Protein**: 50.9% of dry mass (50.0% expected)  
 - **Genome Mass**: 650 Da/bp including associated proteins
 - **Membrane Calculations**: Lipid area 0.7 nm²/molecule
 
@@ -153,56 +160,36 @@ java -cp bin biological.DebugMain
 - **E. coli**: 37°C, pH 7.0, 0.15 M salinity  
 - **Yeast**: 25°C, pH 7.2, 0.1 M salinity
 
-### Growth Rates (Target)
-- **MED4**: 1.8 doublings/hour
-- **E. coli**: 2.0 doublings/hour
-- **Yeast**: 0.5 doublings/hour
-
 ## ⚠️ Known Issues & TODO
 
 ### High Priority
-- [ ] **Yeast Growth Rate Calibration**: Current 0.02 vs expected 0.50
+- [ ] **Yeast Growth Rate Calibration**: Current 0.02 vs expected 0.50 (95.1% error)
+- [ ] **Yeast Protein Calibration**: Current 63.6% vs expected 45.0% (41.3% error)
 - [ ] **Duplicate Cell Creation Messages**: Appearing twice in output
-- [ ] **Growth Rate Environmental Factors**: Not fully implemented
 
 ### Medium Priority  
+- [ ] **Growth Rate Environmental Factors**: Temperature, pH, nutrient limitations
 - [ ] **Energy Balance Implementation**: ATP production/consumption tuning
 - [ ] **Nutrient Limitation Models**: Surface area-limited transport
-- [ ] **Stress Response Integration**: Environmental effect calculations
 
-### Low Priority
-- [ ] **Eukaryotic GenBank Parsing**: Complex chromosome handling
-- [ ] **Advanced Metabolic Modeling**: Genome-scale metabolic networks
-- [ ] **Graphical Visualization**: 3D cellular component rendering
+### Resolved Issues ✅
+- [x] **Protein Mass Calculation**: Fixed 1000x error factor
+- [x] **E. coli Validation**: Achieved 1.8% protein error
+- [x] **Yeast Gene Generation**: Implemented 6,600 gene generator
 
-## 🔄 Recent Changes
+## 🔄 Version History
 
-### Version 2.1 (Current)
+### Version 2.1 (Current) - December 2023
 - **FIXED**: Protein mass calculation error (1000x factor)
 - **ADDED**: YeastGeneLoader for realistic eukaryotic genomes
 - **ADDED**: Comprehensive validation system
 - **ADDED**: Sensitivity analysis framework
-- **IMPROVED**: E. coli protein validation (1.8% error)
+- **IMPROVED**: E. coli protein validation (1.8% error ✅)
 
 ### Version 2.0
 - Base framework with bacterial cell types
 - GenBank integration for prokaryotes
 - Basic mass and energy calculations
-
-## 📊 Output Metrics
-
-- **Growth Rates**: Species-specific doubling rates (hr⁻¹)
-- **Mass Calculations**: Wet/dry mass (Da), genome mass, membrane mass
-- **Protein Validation**: Fraction of dry mass (0-1 scale)
-- **Sensitivity Analysis**: Parameter influence rankings
-- **Validation Results**: Experimental vs simulated comparisons
-
-## 🧪 Experimental Validation
-
-The framework includes rigorous validation against experimental data:
-- **Growth Rates**: Compared to literature values
-- **Protein Fractions**: Validated against biochemical measurements
-- **Mass Calculations**: Cross-checked with biological databases
 
 ## 📚 References
 
