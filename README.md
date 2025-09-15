@@ -227,6 +227,6 @@ This project is available for academic and research use. Please cite relevant li
 
 ---
 
-*Last updated: December 2023*  
-*Framework version: 1.0*  
+*Last updated: September 2025*  
+*Framework version: 2.0*  
 *Compatible with Java 21+*
