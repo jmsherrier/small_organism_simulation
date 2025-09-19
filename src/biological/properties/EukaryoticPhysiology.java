@@ -10,8 +10,10 @@ import java.util.Map;
 public class EukaryoticPhysiology implements Physiology {
     private final Map<String, Double> nutrientQuotas;
     private final Map<String, Double> energyYields;
+    private double maxGrowthRate; // ADDED: field to store growth rate
     
     public EukaryoticPhysiology() {
+        this.maxGrowthRate = 0.5; // DEFAULT value
         nutrientQuotas = new HashMap<>();
         nutrientQuotas.put("glucose", 0.15);
         nutrientQuotas.put("oxygen", 0.02);
@@ -20,9 +22,19 @@ public class EukaryoticPhysiology implements Physiology {
         nutrientQuotas.put("carbon", 0.45);
         
         energyYields = new HashMap<>();
-        energyYields.put("glucose_glycolysis", 2.0); // ATP per glucose
-        energyYields.put("glucose_oxidative", 36.0); // ATP per glucose
-        energyYields.put("fatty_acid_oxidation", 120.0); // ATP per palmitate
+        energyYields.put("glucose_glycolysis", 2.0);
+        energyYields.put("glucose_oxidative", 36.0);
+        energyYields.put("fatty_acid_oxidation", 120.0);
+    }
+    
+    // ADDED: Setter method for sensitivity analysis
+    public void setMaxGrowthRate(double maxGrowthRate) {
+        this.maxGrowthRate = maxGrowthRate;
+    }
+    
+    @Override
+    public double getMaxGrowthRate() { 
+        return maxGrowthRate; // UPDATED: return field instead of fixed value
     }
     
     @Override
@@ -33,16 +45,6 @@ public class EukaryoticPhysiology implements Physiology {
     
     @Override
     public double getOptimalSalinity() { return 0.1; }
-    
-    private double maxGrowthRate = 0.5;
-    public void setMaxGrowthRate(double maxGrowthRate) {
-        this.maxGrowthRate = maxGrowthRate;
-    }
-
-    @Override
-    public double getMaxGrowthRate() {
-        return maxGrowthRate;
-    }
     
     @Override
     public Map<String, Double> getNutrientRequirements() { 
@@ -90,13 +92,13 @@ public class EukaryoticPhysiology implements Physiology {
     
     @Override
     public double getStressTolerance(String stressor) { 
-        return switch (stressor) {
-            case "heat" -> 0.6;
-            case "acid" -> 0.4;
-            case "osmotic" -> 0.7;
-            case "oxidative" -> 0.5;
-            default -> 0.5;
-        };
+        switch (stressor) {
+            case "heat": return 0.6;
+            case "acid": return 0.4;
+            case "osmotic": return 0.7;
+            case "oxidative": return 0.5;
+            default: return 0.5;
+        }
     }
     
     @Override

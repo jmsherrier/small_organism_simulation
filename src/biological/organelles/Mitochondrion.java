@@ -10,7 +10,7 @@ public class Mitochondrion extends Organelle {
     public Mitochondrion(double volumeMicron3, double cristaeDensity) {
         super("Mitochondrion", volumeMicron3);
         this.cristaeDensity = cristaeDensity;
-        this.oxidativeCapacity = volumeMicron3 * cristaeDensity * 100.0; // Scaling factor
+        this.oxidativeCapacity = volumeMicron3 * cristaeDensity * 150.0; // Increased scaling
     }
     
     @Override

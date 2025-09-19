@@ -55,7 +55,7 @@ public abstract class Cell {
         return cytoplasmDry + membraneDry + getGenomeMass();
     }
     
-    protected double calculateEnergyBalance() {
+    public double calculateEnergyBalance() {
         Map<String, Double> atpProduction = calculateATPProduction();
         Map<String, Double> atpConsumption = calculateATPConsumption();
         double dryMass = getDryDaltonsWithGenome() / 6.022e23 * 1e-3; // Convert to grams
